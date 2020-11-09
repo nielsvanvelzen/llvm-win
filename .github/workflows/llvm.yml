@@ -11,5 +11,7 @@ jobs:
     steps:
       - name: Install llvmenv
         run: cargo install llvmenv
+      - name: Init LLVMENV
+        run: llvmenv init
       - name: Build LLVM 10.0.0
         run: llvmenv build-entry 10.0.0
