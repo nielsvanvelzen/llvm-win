@@ -10,7 +10,10 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Install llvmenv
-        run: cargo install llvmenv
+        uses: actions-rs/install@v0.1
+        with:
+          crate: llvmenv
+          version: latest
       - name: Init LLVMENV
         run: llvmenv init
       - name: Build LLVM 10.0.0
