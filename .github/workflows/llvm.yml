@@ -21,7 +21,7 @@ jobs:
         working-directory: llvmorg-10.0.1
       
       - name: Build A
-        run: cmake -G "Visual Studio" ../llvm
+        run: cmake -G "Visual Studio 16 2019" ../llvm
         working-directory: llvmorg-10.0.1/build
       
       - name: Build B
