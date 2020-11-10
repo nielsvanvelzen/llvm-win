@@ -9,12 +9,21 @@ jobs:
   build:
     runs-on: windows-latest
     steps:
-      - name: Install llvmenv
-        uses: actions-rs/install@v0.1
+      - name: Clone LLVM 10.0.1
+        uses: actions/checkout@v2.3.4
         with:
-          crate: llvmenv
-          version: latest
-      - name: Init LLVMENV
-        run: llvmenv init
-      - name: Build LLVM 10.0.0
-        run: llvmenv build-entry 10.0.0
+          repository: llvm/llvm-project
+          ref: llvmorg-10.0.1
+          path: llvmorg-10.0.1
+      
+      - name: Prepare build
+        run: mkdir build
+        working-directory: llvmorg-10.0.1
+      
+      - name: Build A
+        run: cmake -G "Visual Studio" ../llvm
+        working-directory: llvmorg-10.0.1/build
+      
+      - name: Build B
+        run: cmake --build .
+        working-directory: llvmorg-10.0.1/build
