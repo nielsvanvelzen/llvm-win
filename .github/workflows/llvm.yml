@@ -11,6 +11,7 @@ jobs:
     strategy:
       matrix:
         llvm: [10.0.1]
+    timeout-minutes: 120
     steps:
       - name: Prepare build
         run: mkdir -p llvm/build && mkdir -p llvm/src
@@ -27,14 +28,16 @@ jobs:
               cmake `
               -S "src/llvm" `
               -B "build" `
-              -G "Visual Studio 16 2019" `
+              -G "Visual Studio 15 2017" `
               -Thost=x64 `
               -A x64 `
               -DLLVM_ENABLE_PROJECTS="lld;clang" `
               -DCMAKE_BUILD_TYPE=Release `
               -DCMAKE_INSTALL_PREFIX="$install_dir" 
         working-directory: llvm
+        timeout-minutes: 120
       
       - name: Build B
         run: cmake --build . --target INSTALL --config Release
         working-directory: llvm/build
+        timeout-minutes: 120
