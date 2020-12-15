@@ -28,7 +28,7 @@ jobs:
               cmake `
               -S "src/llvm" `
               -B "build" `
-              -G "Visual Studio 15 2017" `
+              -G "Visual Studio 16 2019" `
               -Thost=x64 `
               -A x64 `
               -DLLVM_ENABLE_PROJECTS="lld;clang" `
