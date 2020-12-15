@@ -13,7 +13,7 @@ jobs:
         llvm: [10.0.1]
     steps:
       - name: Prepare build
-        run: mkdir -p llvm/build llvm/src
+        run: mkdir -p llvm/build && mkdir -p llvm/src
 
       - name: Clone LLVM
         uses: actions/checkout@v2
