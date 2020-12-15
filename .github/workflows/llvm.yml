@@ -36,5 +36,5 @@ jobs:
         working-directory: llvm
       
       - name: Build B
-        run: cmake --build "build" --target INSTALL --config Release
+        run: cmake --build . --target INSTALL --config Release
         working-directory: llvm/build
