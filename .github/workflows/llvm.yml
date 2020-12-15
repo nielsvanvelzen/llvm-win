@@ -25,8 +25,8 @@ jobs:
       - name: Build A
         run: |
               cmake `
-              -S "src" `
-              -B "buid" `
+              -S "src/llvm" `
+              -B "build" `
               -G "Visual Studio 16 2019" `
               -Thost=x64 `
               -A x64 `
