@@ -53,6 +53,6 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: ${{ matrix.llvm }}
-          path: llvm/build/llvm
+          path: llvm/build
           if-no-files-found: error
           retention-days: 1
