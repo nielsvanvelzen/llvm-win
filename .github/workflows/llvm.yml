@@ -23,21 +23,36 @@ jobs:
           ref: llvmorg-${{ matrix.llvm}}
           path: llvm/src
       
-      - name: Build A
+      - name: Configure
         run: |
               cmake `
+              -G "Visual Studio 16 2019" `
               -S "src/llvm" `
               -B "build" `
-              -G "Visual Studio 16 2019" `
               -Thost=x64 `
               -A x64 `
               -DLLVM_ENABLE_PROJECTS="lld;clang" `
               -DCMAKE_BUILD_TYPE=Release `
-              -DCMAKE_INSTALL_PREFIX="$install_dir" 
+              -DCMAKE_INSTALL_PREFIX="install" `
+              -DLLVM_INCLUDE_EXAMPLES=OFF `
+              -DLLVM_INCLUDE_DOCS=OFF `
+              -DLLVM_INCLUDE_TESTS=OFF `
+              -DLLVM_INCLUDE_GO_TESTS=OFF `
+              -DLLVM_INCLUDE_TOOLS=ON `
+              -DLLVM_INCLUDE_UTILS=OFF `
+              -DLLVM_OPTIMIZED_TABLEGEN=ON `
         working-directory: llvm
         timeout-minutes: 120
       
-      - name: Build B
+      - name: Build
         run: cmake --build . --target INSTALL --config Release
         working-directory: llvm/build
         timeout-minutes: 120
+
+      - name: Upload
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ matrix.llvm }}
+          path: llvm/build/llvm
+          if-no-files-found: error
+          retention-days: 1
