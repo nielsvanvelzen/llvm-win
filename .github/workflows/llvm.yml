@@ -45,7 +45,7 @@ jobs:
         timeout-minutes: 120
       
       - name: Build
-        run: cmake --build . --target INSTALL --config Release
+        run: cmake --build . --config Release
         working-directory: llvm/build
         timeout-minutes: 120
 
