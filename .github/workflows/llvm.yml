@@ -11,7 +11,7 @@ jobs:
     strategy:
       matrix:
         llvm: [10.0.1]
-    timeout-minutes: 120
+    timeout-minutes: 300
     steps:
       - name: Install Ninja
         uses: seanmiddleditch/gha-setup-ninja@master
@@ -42,7 +42,7 @@ jobs:
               -DLLVM_INCLUDE_UTILS=OFF `
               -DLLVM_OPTIMIZED_TABLEGEN=ON `
         working-directory: llvm
-        timeout-minutes: 120
+        timeout-minutes: 30
       
       - name: Build
         run: cmake --build . --config Release
