@@ -47,7 +47,7 @@ jobs:
       - name: Build
         run: cmake --build . --config Release
         working-directory: llvm/build
-        timeout-minutes: 120
+        timeout-minutes: 300
 
       - name: Upload
         uses: actions/upload-artifact@v2
