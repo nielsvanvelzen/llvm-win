@@ -13,6 +13,9 @@ jobs:
         llvm: [10.0.1]
     timeout-minutes: 120
     steps:
+      - name: Install Ninja
+        uses: seanmiddleditch/gha-setup-ninja@master
+
       - name: Prepare build
         run: mkdir -p llvm/build && mkdir -p llvm/src
 
@@ -22,11 +25,11 @@ jobs:
           repository: llvm/llvm-project
           ref: llvmorg-${{ matrix.llvm}}
           path: llvm/src
-      
+
       - name: Configure
         run: |
               cmake `
-              -G "Visual Studio 16 2019" `
+              -G Ninja `
               -S "src/llvm" `
               -B "build" `
               -DLLVM_ENABLE_PROJECTS="lld;clang" `
