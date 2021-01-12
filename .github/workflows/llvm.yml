@@ -10,7 +10,7 @@ jobs:
     runs-on: windows-latest
     strategy:
       matrix:
-        llvm: [10.0.1]
+        llvm: [11.0.1]
     timeout-minutes: 300
     steps:
       - name: Install Ninja
@@ -32,8 +32,10 @@ jobs:
               -G Ninja `
               -S "src/llvm" `
               -B "build" `
+              -DCMAKE_INSTALL_PREFIX=install `
               -DLLVM_ENABLE_PROJECTS="lld;clang" `
               -DCMAKE_BUILD_TYPE=Release `
+              -DLLVM_TARGETS_TO_BUILD=AArch64 `
               -DLLVM_INCLUDE_EXAMPLES=OFF `
               -DLLVM_INCLUDE_DOCS=OFF `
               -DLLVM_INCLUDE_TESTS=OFF `
@@ -45,14 +47,20 @@ jobs:
         timeout-minutes: 30
       
       - name: Build
-        run: cmake --build . --config Release
+        run: ninja install -f build-Release.ninja
         working-directory: llvm/build
         timeout-minutes: 300
 
-      - name: Upload
+      - name: Upload (install)
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ matrix.llvm }}
+          path: llvm/install
+          retention-days: 1
+
+      - name: Upload (build)
         uses: actions/upload-artifact@v2
         with:
           name: ${{ matrix.llvm }}
           path: llvm/build
-          if-no-files-found: error
           retention-days: 1
