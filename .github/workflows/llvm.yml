@@ -47,7 +47,7 @@ jobs:
         timeout-minutes: 30
       
       - name: Build
-        run: ninja install -f build-Release.ninja
+        run: ninja install
         working-directory: llvm/build
         timeout-minutes: 300
 
